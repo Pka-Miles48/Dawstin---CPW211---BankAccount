@@ -38,18 +38,26 @@ namespace Dawstin___BankAccount
         /// <returns>The new balance after the deposit</returns>
         public double Deposit(double amt)
         {
-            // Balance += amt;
+            if (amt <= 0)
+            {
+                throw new ArgumentOutOfRangeException($"The {nameof(amt)} must be more than 0");
+            }
+
+            Balance += amt;
             return Balance;
         }
 
         /// <summary>
-        /// Withdraws the amount of money from the balance
+        /// Withdraws the amount of money from the balance and
+        /// returns the updated balance
         /// </summary>
-        /// <param name="amt">The positive amount of money to be
+        /// <param name="amount">The positive amount of money to be
         /// taken from the balance</param>
-        public void Withdraw(double amt)
+        /// <returns>Returns updated balance after withdrawal</returns>
+        public double Withdraw(double amount)
         {
-            throw new NotImplementedException();
+            Balance -= amount;
+            return Balance;
         }
     }
 }
