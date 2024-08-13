@@ -58,12 +58,7 @@ namespace Dawstin___BankAccount.Tests
             Assert.ThrowsException<ArgumentOutOfRangeException>
                 (() => acc.Deposit(invalidDepositAmount));
         }
-
-        // Withdrawing a positive amount - reutrns updated balance
-        // Withdrawing 0 - Throws ArgumentOutRange exception
-        // Withdrawing negative amount - Throws ArgumentOutRange exception
-        // Withdrawing more than available balance - ArgumentException
-
+       
         [TestMethod]
         public void Withdraw_PositiveAmount_DecreaseBalance()
         {
@@ -80,6 +75,27 @@ namespace Dawstin___BankAccount.Tests
 
             // Assert
             Assert.AreEqual(exceptedBalance, actualBalance);
+        }
+
+        [TestMethod]
+        public void Withdraw_PositiveAmount_ReturnsUpdatedBalance()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow (-.01)]
+        [DataRow (-1000)]
+        public void Withdraw_ZeroOrLess_ThrowsArgumentOutRangeException()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void Withdraw_MoreThanAvailableBalance_ThrowsArgumentException()
+        {
+            Assert.Fail();
         }
     }
 }
