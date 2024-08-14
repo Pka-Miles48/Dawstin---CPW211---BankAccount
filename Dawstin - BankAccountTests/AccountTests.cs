@@ -24,6 +24,7 @@ namespace Dawstin___BankAccount.Tests
         [DataRow(.01)]
         [DataRow(1.999)]
         [DataRow(9_999.99)]
+        [TestCategory("Deposit")]
         public void Deposit_APositiveAmount_AddToBalance(double depositAmount)
         {
             acc.Deposit(depositAmount);
@@ -109,6 +110,38 @@ namespace Dawstin___BankAccount.Tests
             double withdrawAmount = 1000;
 
             Assert.ThrowsException<ArgumentException>(() => acc.Withdraw(withdrawAmount));
+        }
+
+        [TestMethod]
+        public void Owner_SetAsNull_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => acc.Owner = null);
+        }
+
+        [TestMethod]
+        public void Owner_SetAsWhiteSpaceOrEmptyString_ThrowsArgumentException()
+        {
+            Assert.ThrowsException<ArgumentException>(() => acc.Owner = String.Empty);
+            Assert.ThrowsException<ArgumentException>(() => acc.Owner = "   ");
+        }
+
+        [TestMethod]
+        [DataRow("Dawstin")]
+        [DataRow("Dawstin Waters")]
+        [DataRow("Dawst Marquon Waters")]
+        public void Owner_SetAsUpTo20Characters_SetsSuccessfully(string ownerName)
+        {
+            acc.Owner = ownerName;
+            Assert.AreEqual(ownerName, acc.Owner);
+        }
+
+        [TestMethod]
+        [DataRow("Dawstin 4th")]
+        [DataRow("Dawstin Marquon Waters")]
+        [DataRow("!*!&")]
+        public void Owner_InvalidOwnerName_ThrowsArgumentException(string ownerName)
+        {
+            Assert.ThrowsException<ArgumentException>(() => acc.Owner = ownerName);
         }
     }
 }
